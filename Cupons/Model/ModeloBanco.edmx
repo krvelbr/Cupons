@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CuponsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="CPF" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="RG" Type="varchar" MaxLength="12" />
+          <Property Name="DataNasc" Type="date" Nullable="false" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="Sexo" Type="varchar" MaxLength="1" />
+          <Property Name="FoneFixo" Type="varchar" MaxLength="15" />
+          <Property Name="FoneCelular1" Type="varchar" MaxLength="15" />
+          <Property Name="FoneCelular2" Type="varchar" MaxLength="15" />
+          <Property Name="FoneCelular3" Type="varchar" MaxLength="15" />
+          <Property Name="Whatsapp" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="35" />
+          <Property Name="Facebook" Type="varchar" MaxLength="50" />
+          <Property Name="Twitter" Type="varchar" MaxLength="50" />
+          <Property Name="Endereco" Type="varchar" MaxLength="50" />
+          <Property Name="EnderecoNumero" Type="varchar" MaxLength="8" />
+          <Property Name="EnderecoComplemento" Type="varchar" MaxLength="30" />
+          <Property Name="Bairro" Type="varchar" MaxLength="40" />
+          <Property Name="Cidade" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="varchar" MaxLength="2" />
+          <Property Name="CEP" Type="varchar" MaxLength="10" />
+          <Property Name="Observacao" Type="varchar(max)" />
+          <Property Name="Foto" Type="varbinary(max)" />
+          <Property Name="DataCadastro" Type="datetime" />
+          <Property Name="CadastradoPor" Type="varchar" MaxLength="20" />
+          <Property Name="DataAlteracao" Type="datetime" />
+          <Property Name="AlteradoPor" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblCuponsFiscais">
+          <Key>
+            <PropertyRef Name="idCupom" />
+          </Key>
+          <Property Name="idCupom" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idLojista" Type="bigint" Nullable="false" />
+          <Property Name="idCliente" Type="bigint" Nullable="false" />
+          <Property Name="COO" Type="bigint" Nullable="false" />
+          <Property Name="DataCupomCOO" Type="datetime" Nullable="false" />
+          <Property Name="ValorCompraCOO" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CadastradoPor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DataCadastro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCuponsImpressos">
+          <Key>
+            <PropertyRef Name="noCupom" />
+          </Key>
+          <Property Name="noCupom" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCliente" Type="bigint" Nullable="false" />
+          <Property Name="DataHoraImpressao" Type="datetime" Nullable="false" />
+          <Property Name="GeradoPor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Impresso" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblLojista">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CNPJLojista" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IELojista" Type="varchar" MaxLength="50" />
+          <Property Name="RazaoLojista" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="FantasiaLojista" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="idRamoAtividade" Type="bigint" />
+          <Property Name="Ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUsuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Endereco" Type="varchar" MaxLength="50" />
+          <Property Name="EnderecoNumero" Type="varchar" MaxLength="8" />
+          <Property Name="EnderecoComplemento" Type="varchar" MaxLength="30" />
+          <Property Name="Bairro" Type="varchar" MaxLength="40" />
+          <Property Name="Cidade" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="varchar" MaxLength="2" />
+          <Property Name="CEP" Type="varchar" MaxLength="10" />
+          <Property Name="Celular" Type="varchar" MaxLength="15" />
+          <Property Name="Whatsapp" Type="varchar" MaxLength="15" />
+          <Property Name="Ativo" Type="bit" Nullable="false" />
+          <Property Name="CadastradoPor" Type="varchar" MaxLength="20" />
+          <Property Name="DataCadastro" Type="datetime" />
+          <Property Name="AlteradoPor" Type="varchar" MaxLength="20" />
+          <Property Name="DataAlteracao" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="CuponsModelStoreContainer">
+          <EntitySet Name="tblCliente" EntityType="Self.tblCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCuponsFiscais" EntityType="Self.tblCuponsFiscais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCuponsImpressos" EntityType="Self.tblCuponsImpressos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLojista" EntityType="Self.tblLojista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsuarios" EntityType="Self.tblUsuarios" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CuponsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RG" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="DataNasc" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="FoneFixo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FoneCelular1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FoneCelular2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FoneCelular3" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Whatsapp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="Facebook" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Twitter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Endereco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EnderecoNumero" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="EnderecoComplemento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+          <Property Name="CadastradoPor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DataAlteracao" Type="DateTime" Precision="3" />
+          <Property Name="AlteradoPor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblCuponsFiscais">
+          <Key>
+            <PropertyRef Name="idCupom" />
+          </Key>
+          <Property Name="idCupom" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idLojista" Type="Int64" Nullable="false" />
+          <Property Name="idCliente" Type="Int64" Nullable="false" />
+          <Property Name="COO" Type="Int64" Nullable="false" />
+          <Property Name="DataCupomCOO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValorCompraCOO" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CadastradoPor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblCuponsImpressos">
+          <Key>
+            <PropertyRef Name="noCupom" />
+          </Key>
+          <Property Name="noCupom" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCliente" Type="Int64" Nullable="false" />
+          <Property Name="DataHoraImpressao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GeradoPor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Impresso" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblLojista">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CNPJLojista" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IELojista" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RazaoLojista" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FantasiaLojista" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ativo" Type="Boolean" Nullable="false" />
+          <Property Name="idRamoAtividade" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tblUsuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Endereco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EnderecoNumero" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="EnderecoComplemento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Whatsapp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" Nullable="false" />
+          <Property Name="CadastradoPor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+          <Property Name="AlteradoPor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DataAlteracao" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="CuponsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCliente" EntityType="Self.tblCliente" />
+          <EntitySet Name="tblCuponsFiscais" EntityType="Self.tblCuponsFiscais" />
+          <EntitySet Name="tblCuponsImpressos" EntityType="Self.tblCuponsImpressos" />
+          <EntitySet Name="tblLojista" EntityType="Self.tblLojista" />
+          <EntitySet Name="tblUsuarios" EntityType="Self.tblUsuarios" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CuponsModelStoreContainer" CdmEntityContainer="CuponsEntities">
+          <EntitySetMapping Name="tblCliente">
+            <EntityTypeMapping TypeName="CuponsModel.tblCliente">
+              <MappingFragment StoreEntitySet="tblCliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="RG" ColumnName="RG" />
+                <ScalarProperty Name="DataNasc" ColumnName="DataNasc" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="FoneFixo" ColumnName="FoneFixo" />
+                <ScalarProperty Name="FoneCelular1" ColumnName="FoneCelular1" />
+                <ScalarProperty Name="FoneCelular2" ColumnName="FoneCelular2" />
+                <ScalarProperty Name="FoneCelular3" ColumnName="FoneCelular3" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="Twitter" ColumnName="Twitter" />
+                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+                <ScalarProperty Name="EnderecoNumero" ColumnName="EnderecoNumero" />
+                <ScalarProperty Name="EnderecoComplemento" ColumnName="EnderecoComplemento" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+                <ScalarProperty Name="CadastradoPor" ColumnName="CadastradoPor" />
+                <ScalarProperty Name="DataAlteracao" ColumnName="DataAlteracao" />
+                <ScalarProperty Name="AlteradoPor" ColumnName="AlteradoPor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCuponsFiscais">
+            <EntityTypeMapping TypeName="CuponsModel.tblCuponsFiscais">
+              <MappingFragment StoreEntitySet="tblCuponsFiscais">
+                <ScalarProperty Name="idCupom" ColumnName="idCupom" />
+                <ScalarProperty Name="idLojista" ColumnName="idLojista" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="COO" ColumnName="COO" />
+                <ScalarProperty Name="DataCupomCOO" ColumnName="DataCupomCOO" />
+                <ScalarProperty Name="ValorCompraCOO" ColumnName="ValorCompraCOO" />
+                <ScalarProperty Name="CadastradoPor" ColumnName="CadastradoPor" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCuponsImpressos">
+            <EntityTypeMapping TypeName="CuponsModel.tblCuponsImpressos">
+              <MappingFragment StoreEntitySet="tblCuponsImpressos">
+                <ScalarProperty Name="noCupom" ColumnName="noCupom" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="DataHoraImpressao" ColumnName="DataHoraImpressao" />
+                <ScalarProperty Name="GeradoPor" ColumnName="GeradoPor" />
+                <ScalarProperty Name="Impresso" ColumnName="Impresso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLojista">
+            <EntityTypeMapping TypeName="CuponsModel.tblLojista">
+              <MappingFragment StoreEntitySet="tblLojista">
+                <ScalarProperty Name="idRamoAtividade" ColumnName="idRamoAtividade" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CNPJLojista" ColumnName="CNPJLojista" />
+                <ScalarProperty Name="IELojista" ColumnName="IELojista" />
+                <ScalarProperty Name="RazaoLojista" ColumnName="RazaoLojista" />
+                <ScalarProperty Name="FantasiaLojista" ColumnName="FantasiaLojista" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsuarios">
+            <EntityTypeMapping TypeName="CuponsModel.tblUsuarios">
+              <MappingFragment StoreEntitySet="tblUsuarios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+                <ScalarProperty Name="EnderecoNumero" ColumnName="EnderecoNumero" />
+                <ScalarProperty Name="EnderecoComplemento" ColumnName="EnderecoComplemento" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="CadastradoPor" ColumnName="CadastradoPor" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+                <ScalarProperty Name="AlteradoPor" ColumnName="AlteradoPor" />
+                <ScalarProperty Name="DataAlteracao" ColumnName="DataAlteracao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
