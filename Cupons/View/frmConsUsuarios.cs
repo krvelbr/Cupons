@@ -192,7 +192,8 @@ namespace Cupons.View
                     //////////////////////////////////
                     string cryptosenha = Funcoes.Banco.GeraSenha(txtUsuario.Text, txtSenha.Text);
                     ////////////////////////////////// já faz o HASH da possivel senha
-                    novasenha = cryptosenha;
+                    // novasenha = cryptosenha;
+                    novasenha = txtSenha.Text.Trim();
                 }
                 else   // se a senha foi alterada, novasenha = senha criptografada nova, caso contrario, permanece a senha atual.
                 {
@@ -249,6 +250,7 @@ namespace Cupons.View
             PainelTopo2.Enabled = true;
             PainelUsuarios.Enabled = true;
             txtSenha.Enabled = true;
+           // txtSenha.Text = senhaatual;
             txtUsuario.Enabled = false;
             btnConsultarUsuario.Enabled = false;
             txtNome.Focus();

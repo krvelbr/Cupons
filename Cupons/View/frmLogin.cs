@@ -49,9 +49,9 @@ namespace Cupons.View
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //////////////////////////////////
-            string cryptosenha = Funcoes.Banco.GeraSenha(txtUser.Text, txtPass.Text);
+            //string cryptosenha = Funcoes.Banco.GeraSenha(txtUser.Text, txtPass.Text);
             ////////////////////////////////// já faz o HASH da possivel senha
-
+            string senha_txt = txtPass.Text;
 
             if (!txtUser.ToString().Trim().Equals(""))  // se nao estiver vazio
             {
@@ -81,7 +81,8 @@ namespace Cupons.View
                     }
                     else
                     {
-                        if (retPass != cryptosenha)  //se a senha de retorno for diferente da senha digitada
+                        //if (retPass != cryptosenha)  //se a senha de retorno for diferente da senha digitada
+                        if (retPass != senha_txt)
                         {
                             MessageBox.Show("Usuário ou Senha Incorreta.\nFavor verificar informações.", "Aviso");
                             txtPass.Text = "";

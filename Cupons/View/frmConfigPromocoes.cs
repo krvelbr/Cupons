@@ -121,6 +121,10 @@ namespace Cupons.View
             Biblioteca.Settings.Default.stringConnection = String.Format(@"Data Source= {0}\{1}; Initial Catalog= {2}; User ID= {3}; Password= {4}", config._IP, config._Instancia, config._Banco, config._Usuario, config._Senha);
             Biblioteca.Settings.Default.Save();
             Biblioteca.Settings.Default.Upgrade();
+            ((Control)this.tabPage1).Enabled = false;
+            ((Control)this.tabPage3).Enabled = false;
+            ((Control)this.tabPage4).Enabled = false;
+
             btnSalvar.Enabled = false;
             btnAlterar.Enabled = true;
             btnSair.Focus();

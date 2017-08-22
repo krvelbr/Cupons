@@ -32,10 +32,12 @@ namespace Cupons.View
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            string cryptosenha = Funcoes.Banco.GeraSenha(Usuario, txtSenha.Text);
-            ////////////////////////////////// já faz o HASH da possivel senha
+            string cryptosenha = txtSenha.Text.Trim();    // nao vai passar pela funcao de crypto
+                                                          //string cryptosenha = Funcoes.Banco.GeraSenha(Usuario, txtSenha.Text);
+                                                          ////////////////////////////////// já faz o HASH da possivel senha
 
 
+            //se o formulario que abriu foi o de configuracoes, vai receber o usuario Promocõe$, ai a senha é o dia e mes + 1978
             if ((Usuario == "Promocoe$" && txtSenha.Text == Password) || cryptosenha == Password)
             {
                 Cancel = false;

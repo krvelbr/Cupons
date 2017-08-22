@@ -147,7 +147,8 @@ namespace Cupons.View
 
                     Usuario user = new Usuario();
                     user._Usuario = txtUsuario.Text;
-                    user._Senha = cryptosenha;   //grava o hash da senha gerado
+                    //user._Senha = cryptosenha;   //grava o hash da senha gerado
+                    user._Senha = txtSenha.Text.Trim();
                     user._Ativo = chkAtivo.Checked;
                     user._Nome = txtNome.Text;
                     user._Endereco = txtEndereco.Text;

@@ -46,6 +46,7 @@ namespace Cupons
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lojistasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ramosDeAtividadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConsultaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cuponsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.clientesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,7 +79,6 @@ namespace Cupons
             this.tsbConfig = new System.Windows.Forms.ToolStripButton();
             this.tsbConsTouch = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.ramosDeAtividadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar.SuspendLayout();
             this.menuBar.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -111,7 +111,7 @@ namespace Cupons
             // tssLiberacao
             // 
             this.tssLiberacao.Name = "tssLiberacao";
-            this.tssLiberacao.Size = new System.Drawing.Size(109, 17);
+            this.tssLiberacao.Size = new System.Drawing.Size(108, 17);
             this.tssLiberacao.Text = "Empresa Teste Ltda";
             // 
             // tssEspaco1
@@ -138,7 +138,7 @@ namespace Cupons
             // tssEspaco2
             // 
             this.tssEspaco2.Name = "tssEspaco2";
-            this.tssEspaco2.Size = new System.Drawing.Size(623, 17);
+            this.tssEspaco2.Size = new System.Drawing.Size(593, 17);
             this.tssEspaco2.Spring = true;
             this.tssEspaco2.Text = " ";
             // 
@@ -146,7 +146,7 @@ namespace Cupons
             // 
             this.tssVersao.Name = "tssVersao";
             this.tssVersao.Size = new System.Drawing.Size(125, 17);
-            this.tssVersao.Text = "Gestor de Cupons v1.0";
+            this.tssVersao.Text = "Gestor de Cupons v1.5";
             // 
             // tssEspaco3
             // 
@@ -217,6 +217,13 @@ namespace Cupons
             this.usuariosToolStripMenuItem.Text = "U&suarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
             // 
+            // ramosDeAtividadeToolStripMenuItem
+            // 
+            this.ramosDeAtividadeToolStripMenuItem.Name = "ramosDeAtividadeToolStripMenuItem";
+            this.ramosDeAtividadeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.ramosDeAtividadeToolStripMenuItem.Text = "&Ramos de Atividade";
+            this.ramosDeAtividadeToolStripMenuItem.Click += new System.EventHandler(this.ramosDeAtividadeToolStripMenuItem_Click);
+            // 
             // ConsultaToolStripMenuItem
             // 
             this.ConsultaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -235,48 +242,48 @@ namespace Cupons
             // 
             this.cuponsToolStripMenuItem1.Enabled = false;
             this.cuponsToolStripMenuItem1.Name = "cuponsToolStripMenuItem1";
-            this.cuponsToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
+            this.cuponsToolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
             this.cuponsToolStripMenuItem1.Text = "C&upons";
             // 
             // clientesToolStripMenuItem1
             // 
             this.clientesToolStripMenuItem1.Name = "clientesToolStripMenuItem1";
-            this.clientesToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
+            this.clientesToolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
             this.clientesToolStripMenuItem1.Text = "Cl&ientes";
             this.clientesToolStripMenuItem1.Click += new System.EventHandler(this.clientesToolStripMenuItem1_Click);
             // 
             // lojistasToolStripMenuItem1
             // 
             this.lojistasToolStripMenuItem1.Name = "lojistasToolStripMenuItem1";
-            this.lojistasToolStripMenuItem1.Size = new System.Drawing.Size(220, 22);
+            this.lojistasToolStripMenuItem1.Size = new System.Drawing.Size(219, 22);
             this.lojistasToolStripMenuItem1.Text = "&Lojistas";
             this.lojistasToolStripMenuItem1.Click += new System.EventHandler(this.lojistasToolStripMenuItem1_Click);
             // 
             // usuáriosToolStripMenuItem
             // 
             this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.usuáriosToolStripMenuItem.Text = "U&suários";
             this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
             // 
             // gerencialDeVendasToolStripMenuItem
             // 
             this.gerencialDeVendasToolStripMenuItem.Name = "gerencialDeVendasToolStripMenuItem";
-            this.gerencialDeVendasToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.gerencialDeVendasToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.gerencialDeVendasToolStripMenuItem.Text = "&Gerencial de Vendas";
             this.gerencialDeVendasToolStripMenuItem.Click += new System.EventHandler(this.gerencialDeVendasToolStripMenuItem_Click);
             // 
             // consultaCuponsTouchToolStripMenuItem
             // 
             this.consultaCuponsTouchToolStripMenuItem.Name = "consultaCuponsTouchToolStripMenuItem";
-            this.consultaCuponsTouchToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.consultaCuponsTouchToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.consultaCuponsTouchToolStripMenuItem.Text = "Consulta Cupons &Touch";
             this.consultaCuponsTouchToolStripMenuItem.Click += new System.EventHandler(this.consultaCuponsTouchToolStripMenuItem_Click);
             // 
             // validadorDeCupomToolStripMenuItem
             // 
             this.validadorDeCupomToolStripMenuItem.Name = "validadorDeCupomToolStripMenuItem";
-            this.validadorDeCupomToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.validadorDeCupomToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.validadorDeCupomToolStripMenuItem.Text = "Validador de Cupom";
             this.validadorDeCupomToolStripMenuItem.Click += new System.EventHandler(this.validadorDeCupomToolStripMenuItem_Click);
             // 
@@ -500,13 +507,6 @@ namespace Cupons
             this.toolStripButton1.Size = new System.Drawing.Size(52, 52);
             this.toolStripButton1.Text = "Validador de Cupom";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // ramosDeAtividadeToolStripMenuItem
-            // 
-            this.ramosDeAtividadeToolStripMenuItem.Name = "ramosDeAtividadeToolStripMenuItem";
-            this.ramosDeAtividadeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.ramosDeAtividadeToolStripMenuItem.Text = "&Ramos de Atividade";
-            this.ramosDeAtividadeToolStripMenuItem.Click += new System.EventHandler(this.ramosDeAtividadeToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
