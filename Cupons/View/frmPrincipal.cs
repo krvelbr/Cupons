@@ -341,8 +341,8 @@ namespace Cupons
         {
             Banco banco = new Banco();
             string mensagem = banco.Backup();
-            if (mensagem.Contains("O conjunto de backup no arquivo 1 é válido."))
-            { MessageBox.Show("O Backup foi realizado com sucesso !"); }//MessageBox.Show(mensagem); }
+            if (mensagem.Contains("BACKUP DATABASE successfully processed"))
+            { MessageBox.Show("Backup realizado com sucesso !"); }//MessageBox.Show(mensagem); }
             else
             { MessageBox.Show("Houve um erro ao efetuar o Backup"); }
 

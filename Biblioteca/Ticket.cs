@@ -13,6 +13,9 @@ namespace Biblioteca
         public DateTime _DataHoraImpressao { get; set; }
         public string _GeradoPor { get; set; }
         public bool _Impresso { get; set; }
+        public bool _Reimpresso { get; set; }
+        public string _ReimpressoPor { get; set; }
+        public DateTime _DataHoraReimpressao { get; set; }
     }
 
     public class TicketsColecao : List<Tickets>

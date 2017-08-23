@@ -150,6 +150,7 @@ namespace Cupons.View
 
         private void btnProcuraNome_Click(object sender, EventArgs e)
         {
+
             if (acao == "Saldo")
             {
                 if (!String.IsNullOrEmpty(mskCPF.Text))
@@ -217,25 +218,29 @@ namespace Cupons.View
             }
             if (acao == "Extrato")
             {
+
                 if (!String.IsNullOrEmpty(mskCPF.Text))
                 {
+                   
                     dtConsCupons.Clear();
                     dtConsCupons = ExtratoCupons(mskCPF.Text);
 
                     if (dtConsCupons != null && dtConsCupons.Rows.Count > 0) //verifica se datatable esta nulo ou vazio
                     {
+                        string cliente="";
                         string cuponsemitidos = "";
                         foreach (DataRow linha in dtConsCupons.Rows)
                         {
-                            cuponsemitidos = cuponsemitidos + linha["noCupom"].ToString().PadLeft(6, '0') + "    ";
-
+                            cuponsemitidos = cuponsemitidos + linha["noCupom"].ToString().PadLeft(8, '0') + "    ";
+                            cliente = linha["Nome"].ToString();
                         }
                         var Extr = new Extrato
                         {
                             header1 = "", //"Promoção Natal de Prêmios",
                             header2 = "", //"Shopping daqui da cidade",
                             header3 = "", //"Av. Frei Serafim, 890",
-                            header4 = lblNome.Text,
+                            //header4 = lblNome.Text,
+                            header4 = cliente,
                             Cupons = cuponsemitidos
                         };
 
@@ -287,7 +292,7 @@ namespace Cupons.View
       //"  <OutputFormat>PDF</OutputFormat>" +
       "  <OutputFormat>EMF</OutputFormat>" +
       "  <PageWidth>8cm</PageWidth>" +
-      "  <PageHeight>27cm</PageHeight>" +
+      "  <PageHeight>27cm</PageHeight>" + // tava 27
       "  <MarginTop>1cm</MarginTop>" +
       "  <MarginLeft>0cm</MarginLeft>" +
       "  <MarginRight>0cm</MarginRight>" +

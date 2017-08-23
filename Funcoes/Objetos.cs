@@ -392,6 +392,7 @@ namespace Funcoes
                 acessoBanco.AdicionarParametros("@DataCupomCOO", CupomF._DataCupomCOO);
                 acessoBanco.AdicionarParametros("@ValorCompraCOO", CupomF._ValorCompraCOO);
                 acessoBanco.AdicionarParametros("@CadastradorPor", CupomF._CadastradoPor);
+                acessoBanco.AdicionarParametros("@NSURede", CupomF._NSURede);
 
                 string idcupom = acessoBanco.ExecutarManipulacao(CommandType.StoredProcedure, "uspCupomFiscalInserir").ToString();
                 return idcupom;
@@ -448,8 +449,8 @@ namespace Funcoes
                 acessoBanco.LimparParametros();
                 acessoBanco.AdicionarParametros("@noTicket", tickets._noTicket);
                 acessoBanco.AdicionarParametros("@idCliente", tickets._idCliente);
-                acessoBanco.AdicionarParametros("@Impresso", tickets._Impresso);
-                acessoBanco.AdicionarParametros("@GeradoPor", tickets._GeradoPor);
+                acessoBanco.AdicionarParametros("@Reimpresso", tickets._Reimpresso);
+                acessoBanco.AdicionarParametros("@ReimpressoPor", tickets._ReimpressoPor);
 
                 string idticket = acessoBanco.ExecutarManipulacao(CommandType.StoredProcedure, "ReimprimeCupom").ToString();
                 return idticket;

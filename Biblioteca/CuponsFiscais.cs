@@ -16,6 +16,7 @@ namespace Biblioteca
         public decimal _ValorCompraCOO { get; set; }
         public string _CadastradoPor { get; set; }
         public DateTime _DataCadastro { get; set; }
+        public string _NSURede { get; set; }
 
     }
 
