@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mskCNPJ = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.mskCPF = new System.Windows.Forms.MaskedTextBox();
@@ -74,7 +74,7 @@
             this.btnReimprir = new System.Windows.Forms.Button();
             this.lblSenha = new System.Windows.Forms.Label();
             this.txtSenha = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.grbDadosCF.SuspendLayout();
             this.GrbCuponsGerados.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCuponsGerados)).BeginInit();
@@ -364,14 +364,14 @@
             // 
             this.dgvCuponsFiscais.AllowUserToAddRows = false;
             this.dgvCuponsFiscais.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCuponsFiscais.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCuponsFiscais.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCuponsFiscais.ColumnHeadersHeight = 30;
             this.dgvCuponsFiscais.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CNPJ,
@@ -391,8 +391,8 @@
             // CNPJ
             // 
             this.CNPJ.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.NullValue = null;
-            this.CNPJ.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.NullValue = null;
+            this.CNPJ.DefaultCellStyle = dataGridViewCellStyle4;
             this.CNPJ.HeaderText = "CNPJ";
             this.CNPJ.Name = "CNPJ";
             // 
@@ -617,18 +617,18 @@
             this.txtSenha.UseSystemPasswordChar = true;
             this.txtSenha.Visible = false;
             // 
-            // button1
+            // btnExcluir
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(813, 384);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 46);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "&Excluir Cupom";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.btnReimprir_Click);
+            this.btnExcluir.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExcluir.ForeColor = System.Drawing.Color.Black;
+            this.btnExcluir.Location = new System.Drawing.Point(813, 384);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(118, 46);
+            this.btnExcluir.TabIndex = 9;
+            this.btnExcluir.Text = "&Excluir Cupom";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Visible = false;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // frmCadCupons
             // 
@@ -637,7 +637,7 @@
             this.Controls.Add(this.lblSenha);
             this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.btnSair);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnExcluir);
             this.Controls.Add(this.btnReimprir);
             this.Controls.Add(this.btnLimpar);
             this.Controls.Add(this.txtNomeCliente);
@@ -709,7 +709,7 @@
         private System.Windows.Forms.TextBox txtSenha;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtNSU;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.DataGridViewTextBoxColumn CNPJ;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataCupom;
         private System.Windows.Forms.DataGridViewTextBoxColumn COOCUPOM;

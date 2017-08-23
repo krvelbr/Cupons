@@ -16,6 +16,7 @@ namespace Biblioteca
         public bool _Reimpresso { get; set; }
         public string _ReimpressoPor { get; set; }
         public DateTime _DataHoraReimpressao { get; set; }
+        public string _Acao { get; set; }
     }
 
     public class TicketsColecao : List<Tickets>

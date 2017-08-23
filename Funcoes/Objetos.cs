@@ -447,12 +447,12 @@ namespace Funcoes
             try
             {
                 acessoBanco.LimparParametros();
-                acessoBanco.AdicionarParametros("@noTicket", tickets._noTicket);
+                acessoBanco.AdicionarParametros("@noCupom", tickets._noTicket);
                 acessoBanco.AdicionarParametros("@idCliente", tickets._idCliente);
-                acessoBanco.AdicionarParametros("@Reimpresso", tickets._Reimpresso);
-                acessoBanco.AdicionarParametros("@ReimpressoPor", tickets._ReimpressoPor);
+                acessoBanco.AdicionarParametros("@Acao", tickets._Acao);
+                acessoBanco.AdicionarParametros("@AcaoPor", tickets._ReimpressoPor);
 
-                string idticket = acessoBanco.ExecutarManipulacao(CommandType.StoredProcedure, "ReimprimeCupom").ToString();
+                string idticket = acessoBanco.ExecutarManipulacao(CommandType.StoredProcedure, "uspLogAcao").ToString();
                 return idticket;
             }
             catch (Exception ex)
@@ -461,7 +461,26 @@ namespace Funcoes
             }
         }
 
+        public string ExcluirCupom(Tickets tickets)
+        {
+            AcessoBancoSql acessoBanco = new AcessoBancoSql();
+            try
+            {
+                acessoBanco.LimparParametros();
+                acessoBanco.AdicionarParametros("@noCupom", tickets._noTicket);
+                acessoBanco.AdicionarParametros("@idCliente", tickets._idCliente);
+                acessoBanco.AdicionarParametros("@Acao", tickets._Acao);
+                acessoBanco.AdicionarParametros("@AcaoPor", tickets._ReimpressoPor);
 
+
+                string idticket = acessoBanco.ExecutarManipulacao(CommandType.StoredProcedure, "uspLogAcao").ToString();
+                return idticket;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;    // se der algum erro, vai aparecer a string de erro aqui, e vai ser devolvido ao inves do id do lojista.
+            }
+        }
 
 
 

@@ -414,13 +414,21 @@
     <EmbeddedResource Include="View\frmValidadorQrCode.resx">
       <DependentUpon>frmValidadorQrCode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\repClientes.rdlc" />
+    <EmbeddedResource Include="View\repClientes.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\repExtratoTickets.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\repLojistas.rdlc" />
-    <EmbeddedResource Include="View\ReportTicket.rdlc" />
-    <EmbeddedResource Include="View\repUsuario.rdlc" />
+    <EmbeddedResource Include="View\repLojistas.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ReportTicket.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\repUsuario.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\TicketPromo.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

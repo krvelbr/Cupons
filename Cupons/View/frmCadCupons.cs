@@ -26,6 +26,7 @@ namespace Cupons.View
         {
             InitializeComponent();
         }
+        string acao = "";
         int ticket = 0;
         DataTable dtCliente = new DataTable();
         DataTable dtLoja = new DataTable();
@@ -161,6 +162,7 @@ namespace Cupons.View
                     btnReimprir.Visible = true;
                     txtSenha.Clear();
                     txtSenha.Focus();
+                    acao = "reimprimir";
                 }
                 else
                 {
@@ -168,8 +170,28 @@ namespace Cupons.View
                     txtSenha.Visible = false;
                     btnReimprir.Visible = false;
                     txtSenha.Clear();
+                    acao = "";
                 }
             }
+            if (e.Control && e.KeyCode == Keys.E)
+                if (btnExcluir.Visible == false)
+                {
+                    lblSenha.Visible = true;
+                    txtSenha.Visible = true;
+                    btnExcluir.Left = 937;
+                    btnExcluir.Visible = true;
+                    txtSenha.Clear();
+                    txtSenha.Focus();
+                    acao = "excluir";
+                }
+                else
+                {
+                    lblSenha.Visible = false;
+                    txtSenha.Visible = false;
+                    btnExcluir.Visible = false;
+                    txtSenha.Clear();
+                    acao = "";
+                }
         }
 
         private void btnConsultaCPF_Click(object sender, EventArgs e)
@@ -834,6 +856,47 @@ namespace Cupons.View
             public string qrCodeSTR { get; set; }
         }
 
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (verificaSenha(txtSenha.Text.Trim()))
+            {
+                if (dgvCuponsFiscais.SelectedRows.Count < 1)
+                {
+                    MessageBox.Show("Deve ser selecionado o Cupom que será Excluido.\nVerifique, selecione e tente novamente.", "Erro", MessageBoxButtons.OK,
+               MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    btnExcluir.Focus();
+                }
+                else
+                {
+                    Exclui_Cupom();
+                    lblSenha.Visible = false;
+                    txtSenha.Visible = false;
+                    btnExcluir.Visible = false;
+                    txtSenha.Clear();
+                    acao = "";
+                    ConsultaCuponsFiscais();
+                }
+            }
+
+        }
+
+        private void Exclui_Cupom()
+        {
+            Banco cupExcluir = new Banco();
+
+            Tickets t = new Tickets();
+
+            t._noTicket = Convert.ToInt32(dgvCuponsGerados.CurrentRow.Cells[0].Value.ToString());
+            t._idCliente = Convert.ToInt32(dtCliente.Rows[0]["id"].ToString().Trim());
+            t._Acao = "EXCLUIR";  //Excluiu um cupom
+            t._ReimpressoPor = Biblioteca.Settings.Default.User;   //vai passar quem fez a acao
+
+            string retorno = cupExcluir.ExcluirCupom(t);
+
+            MessageBox.Show(t._ReimpressoPor+", você excluiu com sucesso o cupom: "+t._noTicket+".\nEssa ação foi armazenada no Banco de Dados para Registro e Auditoria.", "Aviso", MessageBoxButtons.OK,
+               MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            txtSenha.Focus();
+        }
 
         private void btnReimprir_Click(object sender, EventArgs e)
         {
@@ -851,16 +914,12 @@ namespace Cupons.View
                 }
                 else
                 {
-
                     Regrava_Cupom();
-
                     lblSenha.Visible = false;
                     txtSenha.Visible = false;
                     btnReimprir.Visible = false;
                     txtSenha.Clear();
-
                 }
-
             }
         }
 
@@ -877,7 +936,7 @@ namespace Cupons.View
 
             t._noTicket = Convert.ToInt32(dgvCuponsGerados.CurrentRow.Cells[0].Value.ToString());
             t._idCliente = Convert.ToInt32(dtCliente.Rows[0]["id"].ToString().Trim());
-            t._Reimpresso = true;  //fez uma reimpressao
+            t._Acao = "REIMPRIMIR";  //Reimprimiu um cupom
             t._ReimpressoPor = Biblioteca.Settings.Default.User;
             //t._DataHoraReimpressao = DateTime.Now;  // na stored procedure ja vai pegar a data e hora atual no banco.
 
@@ -923,10 +982,7 @@ namespace Cupons.View
 
         }
 
-        private void Reimprime_Cupom()
-        {
-            throw new NotImplementedException();
-        }
+
 
         private void mskDataCupom_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -950,5 +1006,7 @@ namespace Cupons.View
                 }
             }
         }
+
+
     }
 }
