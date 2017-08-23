@@ -37,6 +37,7 @@ namespace Cupons.View
         bool impresso = false;
         int totalcuponsimpressos;
         int totalcuponsgerar;
+        
         private IList<Stream> m_streams;   // para impressao ticket direto printer
         private int m_currentPageIndex;   // para impressao ticket direto printer
 
@@ -83,8 +84,20 @@ namespace Cupons.View
 
             limpaCampos();
             EnableCampos(true);
-            mskCPF.Focus();
-            SendKeys.Send("{BACKSPACE}");
+            if (mskCPF.Text != "")
+            { btnConsultaCPF.Focus(); }
+            else
+            {
+                mskCPF.Focus();
+                SendKeys.Send("{BACKSPACE}");
+            }
+        }
+
+        internal void LoadCPF(String CPF = "")
+        {
+            mskCPF.Text = CPF;
+            CPF = ""; // zera para nao ter problema se for limpar os campos novamente.
+            btnConsultaCPF.Focus();
         }
 
         private void EnableCampos(bool stats)
@@ -107,6 +120,7 @@ namespace Cupons.View
         {
             btnGerarCupons.Visible = false;
             limpaCampos();
+            mskCPF.Clear();
             EnableCampos(true);
             mskCPF.Focus();
             SendKeys.Send("{BACKSPACE}");
@@ -114,8 +128,8 @@ namespace Cupons.View
 
         private void limpaCampos()
         {
-            mskCNPJ.Clear();
-            mskCPF.Clear();
+            mskCNPJ.Clear(); 
+            //mskCPF.Clear();
             mskDataCupom.Clear();
             txtNomeCliente.Clear();
             txtNumeroCOO.Clear();

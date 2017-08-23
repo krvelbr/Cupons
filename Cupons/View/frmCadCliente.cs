@@ -22,7 +22,7 @@ namespace Cupons.View
         public frmCadCliente()
         {
             InitializeComponent();
-            
+
         }
         public bool fezbusca = false;
 
@@ -164,10 +164,24 @@ namespace Cupons.View
 
                     if (int.TryParse(retornobanco, out id) == true)
                     {
-                        MessageBox.Show("Cliente Cadastrado com sucesso no Banco de Dados.\n" +
-                                        "Cadastrado com ID n°: " + id.ToString().PadLeft(6, '0'), "Sucesso");
-                        limparClientes();
-                        mskCPF.Focus();
+                        DialogResult resultado = MessageBox.Show("Cliente Cadastrado com sucesso no Banco de Dados.\n" +
+                                   "Cadastrado com ID n°: " + id.ToString().PadLeft(6, '0') + ".\n\nCadastrar Cupons desse Cliente ?"
+                                   , "Sucesso", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                        if (resultado == DialogResult.Yes)
+                        {
+                            Clipboard.SetText(cli._CPF);
+                            frmCadCupons frmLancaCupons = new frmCadCupons();
+                            frmLancaCupons.LoadCPF(cli._CPF);
+                            this.Close();
+                            //frmLancaCupons.Focus();
+                            frmLancaCupons.Show();
+                            //chama a tela de cadastro de cupons
+                        }
+                        else
+                        {
+                            limparClientes();
+                            mskCPF.Focus();
+                        }
                     }
                     else
                     {
@@ -176,6 +190,9 @@ namespace Cupons.View
                     }
 
                 }
+                // limparClientes();    //limpa os clientes e da foco no cpf se vier da tela do cadastro de cupons
+                // mskCPF.Focus();
+
             }
         }
 
@@ -456,7 +473,38 @@ namespace Cupons.View
             }
         }
 
-       
+        private void mskCEP_Leave(object sender, EventArgs e)
+        {
+            WEBCEP(mskCEP.Text);  // verificar o cep
+
+        }
+
+        private void WEBCEP(string CEP)
+        {
+            string _resultado = "0";
+            string buscacep = "https://viacep.com.br/ws/" + CEP.Replace("-", "").Trim() + "/xml/";
+
+            //Cria um DataSet  baseado no retorno do XML  
+            DataSet ds = new DataSet();
+            ds.ReadXml(buscacep);
+            if (ds != null)
+            {
+                //if (ds.Tables[0].TableName == "xmlcep")
+                if (ds.Tables[0].Columns.Count > 1)
+                {
+                    txtEndereco.Text = ds.Tables[0].Rows[0]["logradouro"].ToString();
+                    txtEnderecoComplemento.Text = ds.Tables[0].Rows[0]["complemento"].ToString();
+                    txtBairro.Text = ds.Tables[0].Rows[0]["bairro"].ToString();
+                    txtCidade.Text = ds.Tables[0].Rows[0]["localidade"].ToString();
+                    txtUF.Text = ds.Tables[0].Rows[0]["uf"].ToString();
+                    txtEnderecoNumero.Focus();
+                }
+                else
+                {
+                    txtEndereco.Focus();
+                }
+            }
+        }
     }
 
 }
