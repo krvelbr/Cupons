@@ -26,7 +26,7 @@ namespace Cupons.View
         {
             InitializeComponent();
         }
-        string acao = "";
+        //string acao = "";
         int ticket = 0;
         DataTable dtCliente = new DataTable();
         DataTable dtLoja = new DataTable();
@@ -176,7 +176,7 @@ namespace Cupons.View
                     btnReimprir.Visible = true;
                     txtSenha.Clear();
                     txtSenha.Focus();
-                    acao = "reimprimir";
+                    //acao = "reimprimir";
                 }
                 else
                 {
@@ -184,7 +184,7 @@ namespace Cupons.View
                     txtSenha.Visible = false;
                     btnReimprir.Visible = false;
                     txtSenha.Clear();
-                    acao = "";
+                    //acao = "";
                 }
             }
             if (e.Control && e.KeyCode == Keys.E)
@@ -196,7 +196,7 @@ namespace Cupons.View
                     btnExcluir.Visible = true;
                     txtSenha.Clear();
                     txtSenha.Focus();
-                    acao = "excluir";
+                    //acao = "excluir";
                 }
                 else
                 {
@@ -204,7 +204,7 @@ namespace Cupons.View
                     txtSenha.Visible = false;
                     btnExcluir.Visible = false;
                     txtSenha.Clear();
-                    acao = "";
+                    //acao = "";
                 }
         }
 
@@ -887,7 +887,7 @@ namespace Cupons.View
                     txtSenha.Visible = false;
                     btnExcluir.Visible = false;
                     txtSenha.Clear();
-                    acao = "";
+                    //acao = "";
                     ConsultaCuponsFiscais();
                 }
             }

@@ -481,27 +481,39 @@ namespace Cupons.View
 
         private void WEBCEP(string CEP)
         {
-            string _resultado = "0";
+            bool api = true;
             string buscacep = "https://viacep.com.br/ws/" + CEP.Replace("-", "").Trim() + "/xml/";
 
             //Cria um DataSet  baseado no retorno do XML  
             DataSet ds = new DataSet();
-            ds.ReadXml(buscacep);
-            if (ds != null)
+            try
             {
-                //if (ds.Tables[0].TableName == "xmlcep")
-                if (ds.Tables[0].Columns.Count > 1)
+                ds.ReadXml(buscacep);
+                api = true;
+            }
+            catch (Exception)
+            {
+                api = false;
+                //  MessageBox.Show("Não foi possível se conectar à Base de CEPs.\n"+"Erro: "+ex.Message, "Erro");
+            }
+            if (api == true)
+            {
+                if (ds != null)
                 {
-                    txtEndereco.Text = ds.Tables[0].Rows[0]["logradouro"].ToString();
-                    txtEnderecoComplemento.Text = ds.Tables[0].Rows[0]["complemento"].ToString();
-                    txtBairro.Text = ds.Tables[0].Rows[0]["bairro"].ToString();
-                    txtCidade.Text = ds.Tables[0].Rows[0]["localidade"].ToString();
-                    txtUF.Text = ds.Tables[0].Rows[0]["uf"].ToString();
-                    txtEnderecoNumero.Focus();
-                }
-                else
-                {
-                    txtEndereco.Focus();
+                    //if (ds.Tables[0].TableName == "xmlcep")
+                    if (ds.Tables[0].Columns.Count > 1)
+                    {
+                        txtEndereco.Text = ds.Tables[0].Rows[0]["logradouro"].ToString();
+                        txtEnderecoComplemento.Text = ds.Tables[0].Rows[0]["complemento"].ToString();
+                        txtBairro.Text = ds.Tables[0].Rows[0]["bairro"].ToString();
+                        txtCidade.Text = ds.Tables[0].Rows[0]["localidade"].ToString();
+                        txtUF.Text = ds.Tables[0].Rows[0]["uf"].ToString();
+                        txtEnderecoNumero.Focus();
+                    }
+                    else
+                    {
+                        txtEndereco.Focus();
+                    }
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿//SqlServerTypes.Utilities.LoadNativeAssemblies(AppDomain.CurrentDomain.BaseDirectory);
+using System;
 using System.Data;
 using System.IO;
 using System.Data.SqlClient;
