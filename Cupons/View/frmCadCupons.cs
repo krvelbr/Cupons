@@ -37,7 +37,7 @@ namespace Cupons.View
         bool impresso = false;
         int totalcuponsimpressos;
         int totalcuponsgerar;
-        
+
         private IList<Stream> m_streams;   // para impressao ticket direto printer
         private int m_currentPageIndex;   // para impressao ticket direto printer
 
@@ -128,7 +128,7 @@ namespace Cupons.View
 
         private void limpaCampos()
         {
-            mskCNPJ.Clear(); 
+            mskCNPJ.Clear();
             //mskCPF.Clear();
             mskDataCupom.Clear();
             txtNomeCliente.Clear();
@@ -551,58 +551,96 @@ namespace Cupons.View
         private void btnGerarCupons_Click(object sender, EventArgs e)
         {
             Banco bancoCupons = new Banco();
-
+            bool printok = true;
             var recibolist = new List<recibo>();
-
+            int cuponsgravados = 0;
+            int cuponsimpressos = 0;
             Tickets t = new Tickets();
-            List<Tickets> tlista = new List<Tickets>();
-            tlista.Clear();
+            //List<Tickets> tlista = new List<Tickets>();
+            //tlista.Clear();
             recibolist.Clear();
 
-            for (int i = 1; i < totalcuponsgerar + 1; i++)
+            try
             {
-                t._idCliente = Convert.ToInt32(dtCliente.Rows[0]["id"].ToString().Trim());
-                t._Impresso = impresso;
-                t._GeradoPor = Biblioteca.Settings.Default.User;
-                t._DataHoraImpressao = DateTime.Now;
-                string retorno = bancoCupons.InserirTicketImpresso(t);
-                t._noTicket = Convert.ToInt32("0" + retorno);    // depois teria que criar uma validacao pra ver se é numero ou mensagem de erro
-                string validacao = Geravalidacao(t);  // envia o conteudo do ticket para gerar a validacao
-
-                Image imagem = GerarQRCode(720, 720, validacao);
-                string imagemSTR = ImageToBase64(imagem, ImageFormat.Bmp);
-                var rec = new recibo
+                for (int i = 1; i < totalcuponsgerar + 1; i++)
                 {
-                    header1 = "LIQUIDA TERESINA 2017",
-                    header2 = "Qual Campanha de Teresina você concorre a um Carro e uma Moto ?",
-                    header3 = "",
-                    header4 = "",
-                    CupomN = t._noTicket.ToString().PadLeft(8, '0'),
-                    NomeCliente = dtCliente.Rows[0]["Nome"].ToString().Trim(),
-                    ClienteEnder = dtCliente.Rows[0]["Endereco"].ToString().Trim(),
-                    ClienteEnderNum = dtCliente.Rows[0]["EnderecoNumero"].ToString().Trim(),
-                    ClienteCidade = dtCliente.Rows[0]["Cidade"].ToString().Trim(),
-                    ClienteUF = dtCliente.Rows[0]["Estado"].ToString().Trim(),
-                    ClienteFone = dtCliente.Rows[0]["FoneFixo"].ToString().Trim(),
-                    ClienteCelular = dtCliente.Rows[0]["FoneCelular1"].ToString().Trim(),
-                    Data = Convert.ToString(DateTime.Now),
-                    Hora = Convert.ToString(DateTime.Now.TimeOfDay),
-                    qrCodeSTR = imagemSTR
-                };
+                    t._idCliente = Convert.ToInt32(dtCliente.Rows[0]["id"].ToString().Trim());
+                    t._Impresso = true;// impresso;
+                    t._GeradoPor = Biblioteca.Settings.Default.User;
+                    t._DataHoraImpressao = DateTime.Now;
+                    string retorno = bancoCupons.InserirTicketImpresso(t);
+                    cuponsgravados++; // acrescenta mais um no ponteiro de cupons gravados no banco naquele momento
+                    t._noTicket = Convert.ToInt32("0" + retorno);    // depois teria que criar uma validacao pra ver se é numero ou mensagem de erro
+                    string validacao = Geravalidacao(t);  // envia o conteudo do ticket para gerar a validacao
 
-                recibolist.Add(rec);
-                tlista.Add(t);
+                    Image imagem = GerarQRCode(720, 720, validacao);
+                    string imagemSTR = ImageToBase64(imagem, ImageFormat.Bmp);
+                    var rec = new recibo
+                    {
+                        header1 = "LIQUIDA TERESINA 2017",
+                        header2 = "Qual Campanha de Teresina você concorre a um Carro e uma Moto ?",
+                        header3 = "",
+                        header4 = "",
+                        CupomN = t._noTicket.ToString().PadLeft(8, '0'),
+                        NomeCliente = dtCliente.Rows[0]["Nome"].ToString().Trim(),
+                        ClienteEnder = dtCliente.Rows[0]["Endereco"].ToString().Trim(),
+                        ClienteEnderNum = dtCliente.Rows[0]["EnderecoNumero"].ToString().Trim(),
+                        ClienteCidade = dtCliente.Rows[0]["Cidade"].ToString().Trim(),
+                        ClienteUF = dtCliente.Rows[0]["Estado"].ToString().Trim(),
+                        ClienteFone = dtCliente.Rows[0]["FoneFixo"].ToString().Trim(),
+                        ClienteCelular = dtCliente.Rows[0]["FoneCelular1"].ToString().Trim(),
+                        Data = Convert.ToString(DateTime.Now),
+                        Hora = Convert.ToString(DateTime.Now.TimeOfDay),
+                        qrCodeSTR = imagemSTR
+                    };
+
+                    recibolist.Add(rec);
+
+                    foreach (recibo linha in recibolist)
+                    {
+                        GeraImpressaoTicketPrinter(linha);
+                        cuponsimpressos++; // acrescenta mais um na relacao de cupons que foram enviados para impressão.
+                    }
+                    //GeraImpressaoTicketPrinter(recibolist);
+                    recibolist.Clear();  // estou limpando a lista de recibos, pois ja usou pra imprimir..
+                    printok = true;
+
+
+                    // add funcao imprimir
+                    // add limpar recibolist.clear()
+                    // retornar o loop pra gravar e imprimir o proximo cupom.
+
+                    // ver se da pra chamar a funcao de imprimir aqui.. e depois que imprimir, limpar a lista.. pra poder ir de 1 em 1 cupom a ser impresso.
+                    //tlista.Add(t);  // nao lembro agora pra que to usando essa lista.
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show("Ocorreu um erro enquanto os cupons eram gravados e impressos. Favor fazer as anotações devidas e entrar em contato com o suporte.\n\nForam Gravados no Banco: "+cuponsgravados+" cupons.\nForam Impressos: "+cuponsimpressos+"\n\nErro: "+error.Message, "Erro !!!", MessageBoxButtons.OK,
+                                          MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                printok = false;
+                //throw;
             }
 
             ConsultaCuponsFiscais();   // atualiza groupboxes e valores de cupons, como quantidades e saldos
+            if (printok == true)
+            {
+                MessageBox.Show("Os cupons foram enviados para impressão. Verifique se não ocorreu nenhum erro de impressão ou falta de papel. Qualquer anomalia, informar para o suporte.\nPode continuar próximos lançamentos.", "Aviso", MessageBoxButtons.OK,
+                                             MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            }
+            btnLimpar.Focus();
+
+
+
+
+
+
+            ////////////
+            ////////////
+            ////////////
 
             //GeraImpressaoTicketPDF(recibolist);
-            foreach (recibo linha in recibolist)
-            {
-                GeraImpressaoTicketPrinter(linha);
-            }
-            //GeraImpressaoTicketPrinter(recibolist);
-            btnLimpar.Focus();
+
         }
 
 
@@ -698,12 +736,6 @@ namespace Cupons.View
         }
 
 
-        /// <summary>
-        /// Rotina de impressao abaixo
-        /// </summary>
-        /// <param name="listaTicket"></param>
-        /// 
-        //public void GeraImpressaoTicketPrinter(List<recibo> listaTicket)
         public void GeraImpressaoTicketPrinter(recibo listaTicket)
         {
             List<recibo> ListasTickets = new List<recibo>();
@@ -714,10 +746,7 @@ namespace Cupons.View
             //report.ReportPath = Application.StartupPath + @"\..\..\..\View\TicketPromo.rdlc";  // modo debug
             report.ReportPath = Application.StartupPath + @"\View\TicketPromo.rdlc";  // modo release
 
-
-
             report.DataSources.Add(new ReportDataSource("meuDataSet", ListasTickets));
-            //report.DataSources.Add(new ReportDataSource("meuDataSet", listaTicket));
             Export(report);
             m_currentPageIndex = 0;
             Print();
@@ -726,25 +755,21 @@ namespace Cupons.View
 
         private void Export(LocalReport report)
         {
-            string deviceInfo =
-      "<DeviceInfo>" +
-      //"  <OutputFormat>PDF</OutputFormat>" +
-      "  <OutputFormat>EMF</OutputFormat>" +
-      "  <PageWidth>8cm</PageWidth>" +
-      "  <PageHeight>15cm</PageHeight>" +  // tava 15 cm
-      "  <MarginTop>0cm</MarginTop>" +    // TAVA 1 CM
-      "  <MarginLeft>0cm</MarginLeft>" +
-      "  <MarginRight>0cm</MarginRight>" +
-      "  <MarginBottom>1cm</MarginBottom>" +
-      "</DeviceInfo>";
             Warning[] warnings;
-            //string[] streamids;
-            // string mimeType;
-            //string encoding;
-            //string extension;
+            // LimparStreams();                  // criei para limpar as streams
+            string deviceInfo =
+          "<DeviceInfo>" +
+          //"  <OutputFormat>PDF</OutputFormat>" +
+          "  <OutputFormat>EMF</OutputFormat>" +
+          "  <PageWidth>8cm</PageWidth>" +
+          "  <PageHeight>17cm</PageHeight>" +  // tava 15 cm
+          "  <MarginTop>0cm</MarginTop>" +    // TAVA 1 CM
+          "  <MarginLeft>0cm</MarginLeft>" +
+          "  <MarginRight>0cm</MarginRight>" +
+          "  <MarginBottom>1cm</MarginBottom>" +
+          "</DeviceInfo>";
 
             m_streams = new List<Stream>();
-            //report.Render("PDF", deviceInfo, CreateStream, out warnings);
             report.Render("Image", deviceInfo, CreateStream, out warnings);
             foreach (Stream stream in m_streams)
             {
@@ -752,6 +777,7 @@ namespace Cupons.View
 
             }
         }
+
 
         private Stream CreateStream(string name, string fileNameExtension, Encoding encoding,
                              string mimeType, bool willSeek)
@@ -798,7 +824,7 @@ namespace Cupons.View
                 {
                     printDoc.PrintPage += new PrintPageEventHandler(PrintPage);
                     m_currentPageIndex = 0;
-                    //printDoc.PrinterSettings.PrinterResolutions=
+
                     printDoc.Print();
                     //Dispose();
                 }
@@ -818,6 +844,7 @@ namespace Cupons.View
             return string.Empty;
         }
 
+
         private void PrintPage(object sender, PrintPageEventArgs ev)
         {
             Metafile pageImage = new Metafile(m_streams[m_currentPageIndex]);
@@ -832,7 +859,7 @@ namespace Cupons.View
             Rectangle adjustedRect = new Rectangle(
                 ev.PageBounds.Left - (int)ev.PageSettings.HardMarginX,
                 ev.PageBounds.Top - (int)ev.PageSettings.HardMarginY,
-                78, 140);    // tamanho do cupom    75x120    // tava 77,140
+                78, 130);    // tamanho do cupom    75x120    // tava 77,140
 
             // Draw a white background for the report
             ev.Graphics.FillRectangle(Brushes.White, adjustedRect);
@@ -843,6 +870,7 @@ namespace Cupons.View
 
             // Draw the report content
             ev.Graphics.DrawImage(pageImage, adjustedRect);
+            //ev.Graphics.DrawImage(pageImage, ev.PageBounds); // se ficar ruim por a linha de cima;...
 
             // Prepare for the next page. Make sure we haven't hit the end.
             m_currentPageIndex++;
@@ -907,7 +935,7 @@ namespace Cupons.View
 
             string retorno = cupExcluir.ExcluirCupom(t);
 
-            MessageBox.Show(t._ReimpressoPor+", você excluiu com sucesso o cupom: "+t._noTicket+".\nEssa ação foi armazenada no Banco de Dados para Registro e Auditoria.", "Aviso", MessageBoxButtons.OK,
+            MessageBox.Show(t._ReimpressoPor + ", você excluiu com sucesso o cupom: " + t._noTicket + ".\nEssa ação foi armazenada no Banco de Dados para Registro e Auditoria.", "Aviso", MessageBoxButtons.OK,
                MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             txtSenha.Focus();
         }

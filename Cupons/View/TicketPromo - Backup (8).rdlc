@@ -726,9 +726,9 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <Top>1.52098cm</Top>
+                              <Top>1.7591cm</Top>
                               <Left>0.24618cm</Left>
-                              <Height>11.04952cm</Height>
+                              <Height>10.81139cm</Height>
                               <Width>0.46536cm</Width>
                               <ZIndex>18</ZIndex>
                               <Style>
@@ -774,14 +774,12 @@
                               </Style>
                             </Image>
                           </ReportItems>
-                          <KeepTogether>true</KeepTogether>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
                           </Style>
                         </Rectangle>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>

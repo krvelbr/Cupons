@@ -146,7 +146,7 @@ namespace Cupons
             // 
             this.tssVersao.Name = "tssVersao";
             this.tssVersao.Size = new System.Drawing.Size(125, 17);
-            this.tssVersao.Text = "Gestor de Cupons v1.5";
+            this.tssVersao.Text = "Gestor de Cupons v1.6";
             // 
             // tssEspaco3
             // 
@@ -294,6 +294,7 @@ namespace Cupons
             this.clientesToolStripMenuItem2,
             this.lojistasToolStripMenuItem2,
             this.cuponsToolStripMenuItem2});
+            this.RelatoriosToolStripMenuItem.Enabled = false;
             this.RelatoriosToolStripMenuItem.Name = "RelatoriosToolStripMenuItem";
             this.RelatoriosToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.RelatoriosToolStripMenuItem.Text = "&Relatórios";

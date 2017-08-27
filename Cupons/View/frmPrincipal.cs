@@ -107,6 +107,7 @@ namespace Cupons
                 else
                 { Application.Exit(); }
             }
+            
         }
 
         private bool CarregaParametrosGerais()
