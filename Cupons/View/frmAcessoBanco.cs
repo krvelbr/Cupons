@@ -81,8 +81,8 @@ namespace Cupons.View
             }
             else
             {
-                txtIP.Text = "LocalHost";
-                txtInstancia.Text = "SQL2014";
+                txtIP.Text = "LocalHost,5010";
+                txtInstancia.Text = "SQLEXPRESS";
                 txtBanco.Text = "Cupons";
                 txtUser.Text = "sa";
                 txtSenha.Text = "solution";
@@ -99,11 +99,29 @@ namespace Cupons.View
 
             if (!String.IsNullOrEmpty(txtIP.Text) || !String.IsNullOrEmpty(txtBanco.Text) || !String.IsNullOrEmpty(txtInstancia.Text) || !String.IsNullOrEmpty(txtUser.Text) || !String.IsNullOrEmpty(txtSenha.Text))
             {
-                string _conex = String.Format(@"Data Source={0}\{1}; Initial Catalog={2}; User ID={3}; Password={4}", txtIP.Text, txtInstancia.Text, txtBanco.Text, txtUser.Text, txtSenha.Text);
-                Biblioteca.Settings.Default.stringConnection = _conex;
+                Biblioteca.AcessoBancoSql.Config info = new Biblioteca.AcessoBancoSql.Config();
+                //int virg = txtIP.Text.IndexOf(',');
+                string[] campos = txtIP.Text.Split(',');
+                //foreach (string campo in campos)
+                //{
+                info.serverName = campos[0].ToString();
+                info.serverPort = campos[1].ToString();
+                //}
+                info.dataBase = txtBanco.Text;
+                info.serverInstance = txtInstancia.Text;
+                info.userName = txtUser.Text;
+                info.passWord = txtSenha.Text;
+                Biblioteca.AcessoBancoSql.SaveXML.SaveData(info, "configCupons.xml");
+
+
+
+
+                //string _conex = String.Format(@"Data Source={0}\{1}; Initial Catalog={2}; User ID={3}; Password={4}", txtIP.Text, txtInstancia.Text, txtBanco.Text, txtUser.Text, txtSenha.Text);
+                //Biblioteca.Settings.Default.stringConnection = _conex;
                 // string x = Biblioteca.Settings.Default.stringConnection;
-                Biblioteca.Settings.Default.Save();
-                Biblioteca.Settings.Default.Upgrade();
+                //Biblioteca.Settings.Default.Save();
+                //Biblioteca.Settings.Default.Upgrade();
+                
 
                 Banco BD = new Banco();
                 dtConfig.Clear();

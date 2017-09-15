@@ -117,6 +117,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3991BC25E136406BAC5AE6A644ED0BF3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_49197CDD847643AEBACBB28DDFBBCCD8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -442,6 +448,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_01F1F24BCC61461B8D4992B1DD5AA9C0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_96094856A9F9BEB42F2F194993775113"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -583,12 +595,6 @@
         "OwnerKey" = "8:_BB0916442F4C348F6DBC742622D87BC4"
         "MsmSig" = "8:_UNDEFINED"
         }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_01F1F24BCC61461B8D4992B1DD5AA9C0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
     }
     "Configurations"
     {
@@ -614,6 +620,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -886,6 +900,26 @@
             "TargetName" = "8:ModeloBanco.Context.cs"
             "Tag" = "8:"
             "Folder" = "8:_13D47A0ABAF0467FBC525F4C8457BE53"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3991BC25E136406BAC5AE6A644ED0BF3"
+            {
+            "SourcePath" = "8:..\\Cupons\\View\\repCupomGanhador.rdlc"
+            "TargetName" = "8:repCupomGanhador.rdlc"
+            "Tag" = "8:"
+            "Folder" = "8:_F4A23DA80F794FC48C906367CDD88519"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1789,15 +1823,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Cupons 2017"
-        "ProductCode" = "8:{46D2F4D4-9EA3-490B-B25A-DDB4CBA9391D}"
-        "PackageCode" = "8:{8DB75797-B240-494D-B276-8D0C720A6EF6}"
+        "ProductCode" = "8:{A59C4A5F-0EAC-4823-8E44-E24453F7B0EC}"
+        "PackageCode" = "8:{0FC2AD9C-4B02-4A15-8913-99EE71C733CF}"
         "UpgradeCode" = "8:{2542A2AC-06A0-4C39-9AA0-6F464A4AEAF6}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.5.0"
+        "ProductVersion" = "8:1.6.0"
         "Manufacturer" = "8:Marko Solution"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

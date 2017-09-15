@@ -61,7 +61,7 @@ namespace Biblioteca {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source = Cupons_SRV\\Cupons; Initial Catalog = Cupons; User ID = sa; Password" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source = localhost,5010\\Cupons; Initial Catalog = Cupons; User ID = sa; Password" +
             " = solution")]
         public string stringConnection {
             get {
@@ -86,7 +86,7 @@ namespace Biblioteca {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source = Cupons_SRV\\Cupons; Initial Catalog = Cupons; User ID = sa; Password" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source = localhost,5010\\Cupons; Initial Catalog = Cupons; User ID = sa; Password" +
             " = solution")]
         public string stringConnPadrao {
             get {

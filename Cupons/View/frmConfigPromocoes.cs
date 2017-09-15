@@ -118,9 +118,22 @@ namespace Cupons.View
             if (PrinterChanged == true)
             { Biblioteca.Settings.Default.Impressora = lsbPrinters.Text; }
 
-            Biblioteca.Settings.Default.stringConnection = String.Format(@"Data Source= {0}\{1}; Initial Catalog= {2}; User ID= {3}; Password= {4}", config._IP, config._Instancia, config._Banco, config._Usuario, config._Senha);
-            Biblioteca.Settings.Default.Save();
-            Biblioteca.Settings.Default.Upgrade();
+            AcessoBancoSql.Config info = new AcessoBancoSql.Config();
+            //int virg = txtIP.Text.IndexOf(',');
+            string[] campos = txtIP.Text.Split(',');
+            //foreach (string campo in campos)
+            //{
+            info.serverName = campos[0].ToString();
+            info.serverPort = campos[1].ToString();
+            //}
+            info.dataBase = txtBanco.Text;
+            info.serverInstance = txtInstancia.Text;
+            info.userName = txtUser.Text;
+            info.passWord = txtSenha.Text;
+            AcessoBancoSql.SaveXML.SaveData(info, "configCupons.xml");
+//            Biblioteca.Settings.Default.stringConnection = String.Format(@"Data Source= {0}\{1}; Initial Catalog= {2}; User ID= {3}; Password= {4}", config._IP, config._Instancia, config._Banco, config._Usuario, config._Senha);
+//            Biblioteca.Settings.Default.Save();
+//            Biblioteca.Settings.Default.Upgrade();
             ((Control)this.tabPage1).Enabled = false;
             ((Control)this.tabPage3).Enabled = false;
             ((Control)this.tabPage4).Enabled = false;
@@ -258,7 +271,7 @@ namespace Cupons.View
 
         }
 
-      
+
     }
 }
 

@@ -146,7 +146,7 @@ namespace Cupons
             // 
             this.tssVersao.Name = "tssVersao";
             this.tssVersao.Size = new System.Drawing.Size(125, 17);
-            this.tssVersao.Text = "Gestor de Cupons v1.6";
+            this.tssVersao.Text = "Gestor de Cupons v1.7";
             // 
             // tssEspaco3
             // 

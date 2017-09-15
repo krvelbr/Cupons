@@ -34,7 +34,7 @@ namespace Cupons.View
         Banco bancoCupons = new Banco();
         Int32 idLoja;
         Int32 idCliente;
-        bool impresso = false;
+        //bool impresso = false;
         int totalcuponsimpressos;
         int totalcuponsgerar;
 
@@ -152,7 +152,7 @@ namespace Cupons.View
             bancoCupons = null;
             idLoja = 0;
             idCliente = 0;
-            impresso = false;
+            //impresso = false;
             totalcuponsimpressos = 0;
             totalcuponsgerar = 0;
 
@@ -461,6 +461,8 @@ namespace Cupons.View
             return retvalid;
         }
 
+        
+
         private string reverseString(string Word)
         {
             char[] arrChar = Word.ToCharArray();
@@ -572,8 +574,11 @@ namespace Cupons.View
                     cuponsgravados++; // acrescenta mais um no ponteiro de cupons gravados no banco naquele momento
                     t._noTicket = Convert.ToInt32("0" + retorno);    // depois teria que criar uma validacao pra ver se é numero ou mensagem de erro
                     string validacao = Geravalidacao(t);  // envia o conteudo do ticket para gerar a validacao
-
+                //    Image imagem = null;
+                    //imagem.Dispose();
+                   // imagem = GerarQRCode(720, 720, validacao);
                     Image imagem = GerarQRCode(720, 720, validacao);
+                    
                     string imagemSTR = ImageToBase64(imagem, ImageFormat.Bmp);
                     var rec = new recibo
                     {
@@ -600,6 +605,8 @@ namespace Cupons.View
                     {
                         GeraImpressaoTicketPrinter(linha);
                         cuponsimpressos++; // acrescenta mais um na relacao de cupons que foram enviados para impressão.
+                        LimparStreams();
+
                     }
                     //GeraImpressaoTicketPrinter(recibolist);
                     recibolist.Clear();  // estou limpando a lista de recibos, pois ja usou pra imprimir..
@@ -751,12 +758,13 @@ namespace Cupons.View
             m_currentPageIndex = 0;
             Print();
             //ListasTickets.Clear();
+            report.Dispose();  // coloquei pra testar limpar a memoria.
         }
 
         private void Export(LocalReport report)
         {
             Warning[] warnings;
-            // LimparStreams();                  // criei para limpar as streams
+           // LimparStreams();                  // criei para limpar as streams
             string deviceInfo =
           "<DeviceInfo>" +
           //"  <OutputFormat>PDF</OutputFormat>" +
@@ -830,6 +838,16 @@ namespace Cupons.View
                 }
             }
         }
+
+        private void LimparStreams()
+        {
+            foreach (var stream in m_streams)
+            {
+                stream.Dispose();
+            }
+            m_streams.Clear();
+        }
+
 
         private string ImpressoraPadrao()
         {
@@ -980,6 +998,7 @@ namespace Cupons.View
             t._idCliente = Convert.ToInt32(dtCliente.Rows[0]["id"].ToString().Trim());
             t._Acao = "REIMPRIMIR";  //Reimprimiu um cupom
             t._ReimpressoPor = Biblioteca.Settings.Default.User;
+            t._DataHoraImpressao = DateTime.Now;
             //t._DataHoraReimpressao = DateTime.Now;  // na stored procedure ja vai pegar a data e hora atual no banco.
 
             string retorno = rePrint.ReimprimeTicket(t);
@@ -1021,7 +1040,7 @@ namespace Cupons.View
             }
 
             //GeraImpressaoTicketPrinter(rec);
-
+            imagem.Dispose();
         }
 
 

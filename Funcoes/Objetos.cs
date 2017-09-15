@@ -98,6 +98,24 @@ namespace Funcoes
             }
         }
 
+        public DataTable ConsultaIDCliente(Int32 idCliente)
+        {
+            DataTable dtRetorno = new DataTable();
+            try
+            {
+                AcessoBancoSql acesso = new AcessoBancoSql();
+                acesso.LimparParametros();
+                //acesso.AdicionarParametros("@Cupom", buscacupom);
+                dtRetorno = acesso.ExecutarConsulta(CommandType.Text, "SELECT * FROM tblCliente where id =" + idCliente);
+
+                return dtRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public DataTable ConsultaCliente(string cpfCliente)
         {
             DataTable dtRetorno = new DataTable();
@@ -585,6 +603,23 @@ namespace Funcoes
             }
         }
 
+        public DataTable BuscaCupom(string buscacupom)
+        {
+            DataTable dtRetorno = new DataTable();
+            try
+            {
+                AcessoBancoSql acesso = new AcessoBancoSql();
+                acesso.LimparParametros();
+                //acesso.AdicionarParametros("@Cupom", buscacupom);
+                dtRetorno = acesso.ExecutarConsulta(CommandType.Text, "SELECT * FROM tblCuponsImpressos where noCupom ="+buscacupom);
+
+                return dtRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
 
         public string InserirRamo(string ramo, string cadastrado)
@@ -639,133 +674,3 @@ namespace Funcoes
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-        public class Funcoes
-            {
-
-
-                public static DataGridView CarregaLojistas(string cnpj)
-                {
-                    DataGridView dgv = new DataGridView();
-                    dgv.DataSource = null;
-
-                    string cmd;
-                    cmd = @"select id, CNPJLojista, FantasiaLojista, RazaoLojista, IELojista, Ativo from [Cupons].dbo.tblLojista";
-
-                    if (cnpj != null)
-                    {
-                        cmd = cmd + " where CNPJLojista = '" + cnpj + "' ";  // se recebeu um cnpj busca especificamente por ele
-                    }
-
-                    dgv.DataSource = AbreBanco(cmd, "CONSULTA");   // envia o comando de busca ao banco
-
-
-                    return dgv;   // definir o retorno
-                }
-
-
-                public static void InsereLojistas(DataTable lojista)
-                {
-                    DataGridView dgv = new DataGridView();
-                    dgv.DataSource = lojista;
-
-                    string cmd;
-                    cmd = @"INSERT INTO [Cupons].dbo.tblLojista(CNPJLojista, IELojista, RazaoLojista, FantasiaLojista, Ativo) " +
-                        "VALUES (@CNPJ, @IE, @Razao, @Fantasia, @Ativo)";
-
-                    AbreBanco(cmd, "INSERE", dgv);
-
-                }
-
-
-
-
-
-
-
-
-
-                private static DataGridView AbreBanco(string comando, string tipotarefabanco, DataGridView dgvtemp = null)
-                {
-                    DataGridView dgvbanco = new DataGridView();
-                    string _conn =
-                        "Data Source = localhost\\HIPER;" + // aqui deve ser colocado o campo com o local do servidor que deve vir da configuracao de parametros
-                        "Initial Catalog = Cupons;" +
-                        "User ID = sa;" +
-                        "Password = hiper";
-
-                    SqlConnection sqlConn = new SqlConnection(_conn);
-                    SqlCommand sqlCmd = new SqlCommand(comando, sqlConn);
-
-                    try
-                    {
-                        if (tipotarefabanco == "CONSULTA")
-                        {
-                            sqlConn.Open();
-                            SqlDataAdapter sqlAdaptador = new SqlDataAdapter(sqlCmd);
-                            DataTable dtLojista = new DataTable();
-                            sqlAdaptador.Fill(dtLojista);
-                            dgvbanco.DataSource = dtLojista;
-                            return dgvbanco;
-                        }
-                        if (tipotarefabanco == "INSERE")
-                        {
-                            sqlConn.Open();
-                            SqlCommand cmdInsere = sqlConn.CreateCommand();
-                            cmdInsere.CommandText = comando;
-
-                            cmdInsere.Parameters.AddWithValue("@CNPJ", dgvtemp.Rows[0].Cells[0].Value.ToString());
-                            cmdInsere.Parameters.AddWithValue("@IE", dgvtemp.Rows[0].Cells[1].Value.ToString());
-                            cmdInsere.Parameters.AddWithValue("@razao", dgvtemp.Rows[0].Cells[2].Value.ToString());
-                            cmdInsere.Parameters.AddWithValue("@Fantasia", dgvtemp.Rows[0].Cells[3].Value.ToString());
-
-                            if (Convert.ToInt16(dgvtemp.Rows[0].Cells[4].Value.ToString()) == 1)
-                            {
-                                cmdInsere.Parameters.AddWithValue("@Ativo", 1);
-                            }
-                            else
-                            {
-                                cmdInsere.Parameters.AddWithValue("@Ativo", 0);
-                            }
-
-                        }
-                        MessageBox.Show("Dados Inseridos com Sucesso.", "Aviso");
-
-                        return null;
-                    }
-                    catch (SqlException sqlerror)
-                    {
-                        MessageBox.Show("Erro ao Acessar o banco de Dados.\n" + sqlerror.Message, "Erro");
-                        return null;
-                    }
-                    finally
-                    {
-                        sqlConn.Close();
-                    }
-
-                }
-
-
-
-            }
-        }
-    }
-}
-*/

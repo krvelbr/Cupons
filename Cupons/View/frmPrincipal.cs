@@ -79,7 +79,7 @@ namespace Cupons
         {
 
             DateTime dataTeste = DateTime.Now.Date;
-            DateTime dataBlock = new DateTime(2017, 12, 28);
+            DateTime dataBlock = new DateTime(2017, 12, 20);
             int result = DateTime.Compare(dataTeste, dataBlock);
 
             if (result > 0)

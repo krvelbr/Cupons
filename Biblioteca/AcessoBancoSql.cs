@@ -7,7 +7,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Biblioteca
 {
@@ -18,18 +20,65 @@ namespace Biblioteca
         //criar conexao
         private SqlConnection CriarConexao()
         {
+            string conexao = null;
             //string _conn =
             //    "Data Source = localhost\\SQL2014;" + // aqui deve ser colocado o campo com o local do servidor que deve vir da configuracao de parametros
             //    "Initial Catalog = Cupons;" +
             //    "User ID = sa;" +
             //    "Password = solution";
+            try
+            {
+                if (File.Exists("configCupons.xml"))
+                {
+                    XmlSerializer xs = new XmlSerializer(typeof(Config));
+                    FileStream read = new FileStream("configCupons.xml", FileMode.Open, FileAccess.Read, FileShare.Read);
+                    Config info = (Config)xs.Deserialize(read);
+                    conexao = String.Format(
+                "Data Source = {0},{1}\\{3};" + // aqui deve ser colocado o campo com o local do servidor que deve vir da configuracao de parametros
+                "Initial Catalog = {2};" +
+                "User ID = {4};" +
+                "Password = {5}", info.serverName, info.serverPort, info.dataBase, info.serverInstance, info.userName, info.passWord);
+                    read.Close();
+                }
+                
+                SqlConnection _conn = new SqlConnection(conexao);
+                //_conn.ConnectionTimeout.Equals(50);
+                _conn.Open();
+                if (_conn.State == ConnectionState.Closed)
+                {
+                    conexao = null;
+                }
 
-            string _conn = Biblioteca.Settings.Default.stringConnection.ToString();
+                if (_conn.State == ConnectionState.Open)
+                {
+                    _conn.Close();
+                }
+            }
 
-            return new SqlConnection(_conn);
+            catch (Exception ex)
+            {
+                conexao = null;
+                /*
+                Config info = new Config();
+                info.serverName = "LocalHost";
+                info.serverPort = "5010";
+                info.dataBase = "Cupons";
+                info.serverInstance = "sqlexpress";
+                info.userName = "sa";
+                info.passWord = "solution";
+                SaveXML.SaveData(info, "configCupons.xml");
+
+                conexao = String.Format(
+                "Data Source = {0},{1}\\{3};" + // aqui deve ser colocado o campo com o local do servidor que deve vir da configuracao de parametros
+                "Initial Catalog = {2};" +
+                "User ID = {4};" +
+                "Password = {5}", info.serverName, info.serverPort, info.dataBase, info.serverInstance, info.userName, info.passWord);
+                */
+            }       
+            return new SqlConnection(conexao);
         }
 
-        
+
 
         //parametros que vao para o banco
         // recebe uma colecao de parametros
@@ -146,6 +195,7 @@ namespace Biblioteca
             }
         }
 
+
         public String ExecutaProcedure(CommandType comandoTipo, string nomedaProcedureouTexto)
         {
 
@@ -190,14 +240,27 @@ namespace Biblioteca
 
         }
 
+        public class SaveXML
+        {
+            public static void SaveData(object obj, string filename)
+            {
+                XmlSerializer sr = new XmlSerializer(obj.GetType());
+                TextWriter writer = new StreamWriter(filename);
+                sr.Serialize(writer, obj);
+                writer.Close();
+            }
+        }
 
-       
+        public class Config
+        {
+            public string serverName { get; set; }
+            public string serverPort { get; set; }
+            public string serverInstance { get; set; }
+            public string dataBase { get; set; }
+            public string userName { get; set; }
+            public string passWord { get; set; }
 
-
-
-
-
-
+        }
     }
 }
 

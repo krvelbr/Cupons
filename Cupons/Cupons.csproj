@@ -172,6 +172,10 @@
     <Compile Include="frmSobre.Designer.cs">
       <DependentUpon>frmSobre.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Impressao.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\ModeloBanco.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -426,6 +430,9 @@
       <DependentUpon>frmValidadorQrCode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\repClientes.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\repCupomGanhador.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="View\repExtratoTickets.rdlc">
